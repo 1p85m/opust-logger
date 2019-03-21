@@ -7,7 +7,7 @@ import time
 import datetime
 import threading
 sys.path.append("/home/exito/ros/src/opust_ros/lib")
-from n2lite import n2lite
+from n2lite import N2lite
 
 import rospy
 import std_msgs.msg
