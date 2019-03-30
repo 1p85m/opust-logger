@@ -29,7 +29,7 @@ class logger(object):
 
     def callback_spec(self, req, args):
         if self.log_flag:
-            self.n2.write("BE{}".format(args["index"]), "", (req.data, time.time()), auto_commit=False)
+            self.n2.write("BE{}".format(args["index"]), "", (req.data, time.time()), auto_commit=True)
         else: pass
         return
 
