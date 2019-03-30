@@ -16,15 +16,13 @@ import std_msgs.msg
 class logger(object):
 
     def __init__(self):
-        self.spec = [[0]]*4
-        self.recv_time = [0]*4
         self.flag = ""
         self.log_flag = False
         pass
 
     def make_table(self):
         [self.n2.make_table("BE{}".format(i), "(spectrum, time float)") 
-                for i in range(1, 3)]
+                for i in range(1, 2)]
         return
 
     def callback_spec(self, req, args):
@@ -90,6 +88,6 @@ if __name__ == '__main__':
                 callback = logg.callback_spec,
                 callback_args = {'index': i },
                 queue_size = 1,
-            ) for i in range(1, 3)]
+            ) for i in range(1, 2)]
 
     rospy.spin()
