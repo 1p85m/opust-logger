@@ -16,13 +16,14 @@ import std_msgs.msg
 class logger(object):
 
     def __init__(self):
+        self.board_num = 2
         self.flag = ""
         self.log_flag = False
         pass
 
     def make_table(self):
         [self.op.make_table("BE{}".format(i), "(spectrum, time float)") 
-                for i in range(1, 3)]
+                for i in range(1, self.board_num+1)]
         return
 
     def callback_spec(self, req, args):
@@ -45,7 +46,7 @@ class logger(object):
             if self.flag == "READY":
                 t = datetime.datetime.fromtimestamp(time.time())
                 dbpath = '/home/exito/data/XFFTS_logger/{}.db'.format(t.strftime('%Y%m%d_%H%M%S'))
-                self.op = Oplite(dbpath)
+                self.op = Oplite(dbpath, self.board_num)
                 self.make_table()
                 print("DATABASE OPEN")
                 self.log_flag = False
@@ -89,6 +90,6 @@ if __name__ == '__main__':
                 callback = logg.callback_spec,
                 callback_args = {'index': i },
                 queue_size = 1,
-            ) for i in range(1, 3)]
+            ) for i in range(1, self.board_num+1)]
 
     rospy.spin()
