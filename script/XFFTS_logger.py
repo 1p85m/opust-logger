@@ -22,7 +22,7 @@ class logger(object):
 
     def make_table(self):
         [self.op.make_table("BE{}".format(i), "(spectrum, time float)") 
-                for i in range(1, 5)]
+                for i in range(1, 3)]
         return
 
     def callback_spec(self, req, args):
@@ -88,6 +88,6 @@ if __name__ == '__main__':
                 callback = logg.callback_spec,
                 callback_args = {'index': i },
                 queue_size = 1,
-            ) for i in range(1, 5)]
+            ) for i in range(1, 3)]
 
     rospy.spin()
