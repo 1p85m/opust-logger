@@ -7,7 +7,7 @@ import time
 import datetime
 import threading
 sys.path.append("/home/exito/ros/src/opust_ros/lib")
-from n2lite import N2lite
+from oplite import Oplite
 
 import rospy
 import std_msgs.msg
@@ -21,13 +21,13 @@ class logger(object):
         pass
 
     def make_table(self):
-        [self.n2.make_table("BE{}".format(i), "(spectrum, time float)") 
-                for i in range(1, 2)]
+        [self.op.make_table("BE{}".format(i), "(spectrum, time float)") 
+                for i in range(1, 5)]
         return
 
     def callback_spec(self, req, args):
         if self.log_flag:
-            self.n2.write("BE{}".format(args["index"]), "", (req.data, time.time()), auto_commit=True)
+            self.op.write("BE{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"], auto_commit=True)
         else: pass
         return
 
@@ -44,7 +44,7 @@ class logger(object):
             if self.flag == "READY":
                 t = datetime.datetime.fromtimestamp(time.time())
                 dbpath = '/home/exito/data/XFFTS_logger/{}.db'.format(t.strftime('%Y%m%d_%H%M%S'))
-                self.n2 = N2lite(dbpath)
+                self.op = Oplite(dbpath)
                 self.make_table()
                 print("DATABASE OPEN")
                 self.log_flag = False
@@ -53,8 +53,8 @@ class logger(object):
             if self.flag == "START":
                 self.log_flag = True
             elif self.flag == "END":
-                self.n2.commit_data()
-                self.n2.close()
+                self.op.commit_data()
+                self.op.close()
                 print("DATABASE CLOSE")
                 self.log_flag = False
             else: pass
@@ -88,6 +88,6 @@ if __name__ == '__main__':
                 callback = logg.callback_spec,
                 callback_args = {'index': i },
                 queue_size = 1,
-            ) for i in range(1, 2)]
+            ) for i in range(1, 5)]
 
     rospy.spin()
