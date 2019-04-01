@@ -23,7 +23,7 @@ class logger(object):
 
     def make_table(self):
         [self.op.make_table("BE{}".format(i), "(spectrum, time float)") 
-                for i in range(1, op.board_num+1)]
+                for i in range(1, self.board_num+1)]
         return
 
     def callback_spec(self, req, args):
