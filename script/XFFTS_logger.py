@@ -90,6 +90,6 @@ if __name__ == '__main__':
                 callback = logg.callback_spec,
                 callback_args = {'index': i },
                 queue_size = 1,
-            ) for i in range(1, op.board_num+1)]
+            ) for i in range(1, logg.op.board_num+1)]
 
     rospy.spin()
