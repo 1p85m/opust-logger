@@ -27,7 +27,7 @@ class logger(object):
 
     def callback_spec(self, req, args):
         if self.log_flag:
-            self.op.write("BE{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"], auto_commit=True)
+            self.op.write("BE{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=True)
         else: pass
         return
 
