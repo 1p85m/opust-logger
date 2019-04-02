@@ -57,10 +57,10 @@ class logger(object):
             if self.flag == "START":
                 self.log_flag = True
             elif self.flag == "END":
+                self.log_flag = False
                 self.op.commit_data()
                 self.op.close()
                 print("DATABASE CLOSE")
-                self.log_flag = False
             else: pass
 
             self.flag = ""
