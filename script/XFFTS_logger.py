@@ -16,6 +16,7 @@ import std_msgs.msg
 class logger(object):
 
     def __init__(self):
+        self.count = 0
         self.board_num = 2
         self.flag = ""
         self.log_flag = False
@@ -28,7 +29,8 @@ class logger(object):
 
     def callback_spec(self, req, args):
         if self.log_flag:
-            print(args["index"])
+            self.count += 1
+            print(self.count)
             self.op.write("BE{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=True)
         else: pass
         return
