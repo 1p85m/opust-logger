@@ -31,7 +31,7 @@ class logger(object):
         if self.log_flag:
             self.count += 1
             print(self.count)
-            self.op.write("BE{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
+            self.op.write("BE{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=True)
         else: pass
         return
 
