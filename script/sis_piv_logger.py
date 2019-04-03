@@ -35,6 +35,7 @@ class logger(object):
 
         return
 
+        """
     def callback_cur(self, req, args):
         if self.log_flag:
             self.op.write("sis_cur_ch{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
@@ -43,15 +44,20 @@ class logger(object):
 
     def callback_vol(self, req, args):
         if self.log_flag:
-            a = req
-            #self.op.write("sis_vol_ch{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
+            self.op.write("sis_vol_ch{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
         else: pass
         return
 
     def callback_power(self, req, args):
         if self.log_flag:
-            a = req
-            #self.op.write("pm_power_ch{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
+            self.op.write("pm_power_ch{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
+        else: pass
+        return
+        """
+
+    def callback(self, req, args):
+        if self.log_flag:
+            self.op.write("{}".format(args), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
         else: pass
         return
 
@@ -109,24 +115,24 @@ if __name__ == '__main__':
     topic_list_cur = [rospy.Subscriber(
                 name = '/sis_cur_ch%d'%(i),
                 data_class = std_msgs.msg.Float64,
-                callback = logg.callback_cur,
-                callback_args = {'index': i },
+                callback = logg.callback,
+                callback_args = 'sis_cur_ch%d'%(i),
                 queue_size = 1,
             ) for i in range(1, logg.sis_num+1)]
 
     topic_list_vol = [rospy.Subscriber(
                 name = '/sis_vol_ch%d'%(i),
                 data_class = std_msgs.msg.Float64,
-                callback = logg.callback_vol,
-                callback_args = {'index': i },
+                callback = logg.callback,
+                callback_args = 'sis_vol_ch%d'%(i),
                 queue_size = 1,
             ) for i in range(1, logg.sis_num+1)]
 
     topic_list_power = [rospy.Subscriber(
                 name = '/pm_power_ch%d'%(i),
                 data_class = std_msgs.msg.Float64,
-                callback = logg.callback_power,
-                callback_args = {'index': i },
+                callback = logg.callback,
+                callback_args = 'pm_power_ch%d'%(i),
                 queue_size = 1,
             ) for i in range(1, logg.pm_num+1)]
 
