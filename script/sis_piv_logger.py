@@ -41,19 +41,19 @@ class logger(object):
         else: pass
         return
 
-        """
     def callback_vol(self, req, args):
         if self.log_flag:
-            self.op.write("sis_vol_ch{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
+            a = req
+            #self.op.write("sis_vol_ch{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
         else: pass
         return
 
     def callback_power(self, req, args):
         if self.log_flag:
-            self.op.write("pm_power_ch{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
+            a = req
+            #self.op.write("pm_power_ch{}".format(args["index"]), "", (req.data, time.time()), cur_num=args["index"]-1, auto_commit=False)
         else: pass
         return
-        """
 
     def callback_flag(self, req):
         self.flag = req.data.upper()
