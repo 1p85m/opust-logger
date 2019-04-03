@@ -54,13 +54,6 @@ class logger(object):
         else: pass
         return
 
-        """
-    def callback(self, req, args):
-        if self.log_flag:
-            self.op.write("{}".format(args), "", (req.data, time.time()), cur_num=, auto_commit=False)
-        else: pass
-        return
-        """
 
     def callback_flag(self, req):
         self.flag = req.data.upper()
