@@ -66,7 +66,8 @@ class logger(object):
             if self.flag == "READY":
                 t = datetime.datetime.fromtimestamp(time.time())
                 dbpath = '/home/exito/data/sis_piv_logger/{}.db'.format(t.strftime('%Y%m%d_%H%M%S'))
-                self.op = Oplite(dbpath, self.board_num)
+                self.op = Oplite(dbpath, self.sis_num)
+                self.op = Oplite(dbpath, self.pm_num)
                 self.make_table()
                 print("DATABASE OPEN")
                 self.log_flag = False
